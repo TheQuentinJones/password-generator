@@ -1,0 +1,86 @@
+// Assignment Code
+var generateBtn = document.querySelector("#generate");
+
+var upperCase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+var lowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+var specialCharacters = ["~","!","@","#","$","%","^","&","*","(",")","_","+","-","=","[","]",".","/","|","{","}",":","<",">","?"];
+
+
+function generatePassword() {
+
+  var uLength = prompt("How long do you want your password to be?");
+  console.log(uLength);
+  //console.log(isNaN(uLength))
+  if(isNaN(uLength)){
+    // if it is true this means that it is not a number
+    alert("The entry must a number");
+    generatePassword();
+  
+  } else  if(uLength < 8 || uLength > 128) {
+    
+    alert("Error!! Your password must be at least 8 characters, but no more than 128.");
+    
+    return
+
+  }
+
+  var lCase = confirm("Would you like to include lowercase letters?");
+  console.log(lCase);
+  var uCase = confirm("Would you like to include uppercase letters?");
+  console.log(uCase);
+  var nCase = confirm("Would you like to include numbers?");
+  console.log(nCase);
+  var sCase = confirm("Would you like to include special characters?");
+  console.log(sCase);
+
+  if (lCase == false && uCase == false && nCase == false && sCase == false) {
+    alert("Error!! You need to include at least one type of character.");
+    return
+
+  }
+
+  var passwordOptions = [];
+  var randomPass = [];
+
+  if(lCase) {
+    passwordOptions.unshift(lowerCase);
+
+  }
+
+  if(uCase) {
+   passwordOptions.unshift(upperCase);
+
+  }
+  
+  if(nCase) {
+    passwordOptions.unshift(numbers);
+ 
+  }
+
+  if(sCase) {
+    passwordOptions.unshift(specialCharacters);
+ 
+  }
+
+
+
+
+
+}
+// Write password to the #password input
+function writePassword() {
+  var password = generatePassword()
+  var passwordText = document.querySelector("#password")
+
+  passwordText.value = password;
+
+}
+
+
+
+// Add event listener to generate button
+generateBtn.addEventListener("click", writePassword);
+
+
+
