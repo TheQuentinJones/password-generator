@@ -1,27 +1,30 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-var upperCase = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-var lowerCase = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
-var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-var specialCharacters = ["~","!","@","#","$","%","^","&","*","(",")","_","+","-","=","[","]",".","/","|","{","}",":","<",">","?"];
+var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+var specialCharacters = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "-", "=", "[", "]", ".", "/", "|", "{", "}", ":", "<", ">", "?"];
 
 
 function generatePassword() {
 
   var uLength = prompt("How long do you want your password to be?");
-  console.log(uLength);
+  var parslength = Number.parseInt(uLength)
   //console.log(isNaN(uLength))
-  if(isNaN(uLength)){
+
+  if (isNaN(parslength)) {
     // if it is true this means that it is not a number
     alert("The entry must a number");
-    generatePassword();
-  
-  } else  if(uLength < 8 || uLength > 128) {
-    
+    return;
+
+  }
+
+  if (parslength < 8 || parslength > 128) {
+
     alert("Error!! Your password must be at least 8 characters, but no more than 128.");
-    
-    return
+
+    return;
 
   }
 
@@ -40,34 +43,59 @@ function generatePassword() {
 
   }
 
-  var passwordOptions = [];
-  var randomPass = [];
+  var result = [];
+  var passwordChars = [];
+  var guaranteedChars = [];
 
-  if(lCase) {
-    passwordOptions.unshift(lowerCase);
+  if (lCase) {
+    passwordChars.unshift(lowerCase);
+    guaranteedChars.push(randomIndex(lowerCase))
+  }
+
+  if (uCase) {
+    passwordChars.unshift(upperCase);
+    guaranteedChars.push(randomIndex(upperCase))
 
   }
 
-  if(uCase) {
-   passwordOptions.unshift(upperCase);
+  if (nCase) {
+    passwordChars.unshift(numbers);
+    guaranteedChars.push(randomIndex(numbers))
 
   }
-  
-  if(nCase) {
-    passwordOptions.unshift(numbers);
- 
+
+  if (sCase) {
+    passwordChars.unshift(specialCharacters);
+    guaranteedChars.push(randomIndex(specialCharacters))
+
   }
 
-  if(sCase) {
-    passwordOptions.unshift(specialCharacters);
- 
+  for (let i = 0; i < parslength; i++) {
+    console.log(result)
+    result.push(randomIndex(passwordChars))
+
+  }
+
+  for (let i = 0; i < guaranteedChars.length; i++) {
+    result[i] = guaranteedChars[i]
+
   }
 
 
 
 
+  return result.join("")
 
 }
+
+function randomIndex(arr) {
+
+  console.log("getting random index", arr)
+  var idx = arr[Math.floor(Math.random() * arr.length)]
+  return idx
+
+}
+
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword()
