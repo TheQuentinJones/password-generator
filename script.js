@@ -29,13 +29,13 @@ function generatePassword() {
   }
 
   var lCase = confirm("Would you like to include lowercase letters?");
-  console.log(lCase);
+  // console.log(lCase);
   var uCase = confirm("Would you like to include uppercase letters?");
-  console.log(uCase);
+  // console.log(uCase);
   var nCase = confirm("Would you like to include numbers?");
-  console.log(nCase);
+  // console.log(nCase);
   var sCase = confirm("Would you like to include special characters?");
-  console.log(sCase);
+  // console.log(sCase);
 
   if (lCase == false && uCase == false && nCase == false && sCase == false) {
     alert("Error!! You need to include at least one type of character.");
@@ -45,41 +45,47 @@ function generatePassword() {
 
   var result = [];
   var passwordChars = [];
-  var guaranteedChars = [];
+  //var guaranteedChars = [];
 
   if (lCase) {
-    passwordChars.unshift(lowerCase);
-    guaranteedChars.push(randomIndex(lowerCase))
+    passwordChars = passwordChars.concat(lowerCase);
+    result.push(randomIndex(lowerCase))
+   // guaranteedChars.push(randomIndex(lowerCase))
   }
 
   if (uCase) {
-    passwordChars.unshift(upperCase);
-    guaranteedChars.push(randomIndex(upperCase))
+    passwordChars = passwordChars.concat(upperCase);
+    result.push(randomIndex(upperCase))
+    //guaranteedChars.push(randomIndex(upperCase))
 
   }
 
   if (nCase) {
-    passwordChars.unshift(numbers);
-    guaranteedChars.push(randomIndex(numbers))
+    passwordChars = passwordChars.concat(numbers);
+    result.push(randomIndex(numbers))
+    //guaranteedChars.push(randomIndex(numbers))
 
   }
 
   if (sCase) {
-    passwordChars.unshift(specialCharacters);
-    guaranteedChars.push(randomIndex(specialCharacters))
+    passwordChars = passwordChars.concat(specialCharacters);
+    result.push(randomIndex(specialCharacters))
+    //guaranteedChars.push(randomIndex(specialCharacters))
 
   }
 
-  for (let i = 0; i < parslength; i++) {
+  console.log(passwordChars)
+
+  for (let i = result.length; i < parslength; i++) {
     console.log(result)
     result.push(randomIndex(passwordChars))
 
   }
 
-  for (let i = 0; i < guaranteedChars.length; i++) {
-    result[i] = guaranteedChars[i]
+   //for (let i = 0; i < guaranteedChars.length; i++) {
+   //result[i] = guaranteedChars[i]
 
-  }
+//  }
 
 
 
@@ -90,7 +96,7 @@ function generatePassword() {
 
 function randomIndex(arr) {
 
-  console.log("getting random index", arr)
+  // console.log("getting random index", arr)
   var idx = arr[Math.floor(Math.random() * arr.length)]
   return idx
 
